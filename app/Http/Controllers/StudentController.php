@@ -13,6 +13,13 @@ class StudentController extends Controller
 
 public function store(Request $request)
 {
+
+    $request->validate([
+        'name'=>'required|min:3|max:40',
+        'email'=>'required|email|unique:students|email|max:50',
+        'program'=>'required|min:4'
+    ]);
+
     Student::create([
 
         'name' => $request->name,
@@ -40,6 +47,12 @@ public function edit($id)
 
 public function update(Request $request, $id)
 {
+    $request->validate([
+        'name' => 'required|min:3|max:50',
+        'email' => 'required|email',
+        'program' => 'required|min:2'
+    ]);
+
     $student = Student::find($id);
 
     $student->name = $request->name;

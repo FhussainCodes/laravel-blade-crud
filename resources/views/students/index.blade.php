@@ -38,11 +38,11 @@
         <td>
 
            <a href="{{ route('students.edit', $student->id) }}"
-                class="btn btn-warning">
+   class="btn btn-sm btn-outline-warning px-3 py-1 rounded-pill shadow-sm">
 
-            Edit
+    ✏️ Edit
 
-            </a>
+</a>
 
             <form action="{{ route('students.destroy', $student->id) }}"
       method="POST"
@@ -50,13 +50,12 @@
 
     @csrf
     @method('DELETE')
+<button class="btn btn-sm btn-outline-danger px-3 py-1 rounded-pill shadow-sm"
+        onclick="return confirm('Are you sure you want to delete this record?')">
 
-    <button class="btn btn-danger"
-            onclick="return confirm('Are you sure?')">
+    🗑️ Delete
 
-        Delete
-
-    </button>
+</button>
 
 </form>
 
