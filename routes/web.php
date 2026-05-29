@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,6 +17,32 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/students', [StudentController::class, 'index'])
+        ->name('students.index');
+
+});
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    Route::get('/students/create', [StudentController::class, 'create'])
+        ->name('students.create');
+
+    Route::post('/students', [StudentController::class, 'store'])
+        ->name('students.store');
+
+    Route::get('/students/{student}/edit', [StudentController::class, 'edit'])
+        ->name('students.edit');
+
+    Route::put('/students/{student}', [StudentController::class, 'update'])
+        ->name('students.update');
+
+    Route::delete('/students/{student}', [StudentController::class, 'destroy'])
+        ->name('students.destroy');
+
 });
 
 require __DIR__.'/auth.php';

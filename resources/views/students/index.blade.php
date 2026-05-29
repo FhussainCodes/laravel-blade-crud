@@ -2,69 +2,111 @@
 
 @section('content')
 
-<h2>All Students</h2>
+<div class="container mt-4">
 
-<a href="{{ route('students.create') }}"
-   class="btn btn-success mb-3">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-   Add Student
+        <h2 class="fw-bold text-primary">
+            🎓 All Students
+        </h2>
 
-</a>
+        <a href="{{ route('students.create') }}"
+           class="btn btn-primary rounded-pill px-4 shadow-sm">
 
-<table class="table table-bordered">
+            ➕ Add Student
 
-    <tr>
+        </a>
 
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Program</th>
-        <th>Actions</th>
+    </div>
 
-    </tr>
+    <div class="card shadow border-0 rounded-4">
 
-    @foreach($students as $student)
+        <div class="card-body">
 
-    <tr>
+            <table class="table table-hover align-middle">
 
-        <td>{{ $student->id }}</td>
+                <thead class="table-dark">
 
-        <td>{{ $student->name }}</td>
+                    <tr>
 
-        <td>{{ $student->email }}</td>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Program</th>
+                        <th width="220">Actions</th>
 
-        <td>{{ $student->program }}</td>
+                    </tr>
 
-        <td>
+                </thead>
 
-           <a href="{{ route('students.edit', $student->id) }}"
-   class="btn btn-sm btn-outline-warning px-3 py-1 rounded-pill shadow-sm">
+                <tbody>
 
-    ✏️ Edit
+                    @foreach($students as $student)
 
-</a>
+                    <tr>
 
-            <form action="{{ route('students.destroy', $student->id) }}"
-      method="POST"
-      style="display:inline;">
+                        <td>
+                            <span class="badge bg-secondary">
+                                {{ $student->id }}
+                            </span>
+                        </td>
 
-    @csrf
-    @method('DELETE')
-<button class="btn btn-sm btn-outline-danger px-3 py-1 rounded-pill shadow-sm"
-        onclick="return confirm('Are you sure you want to delete this record?')">
+                        <td class="fw-semibold">
+                            {{ $student->name }}
+                        </td>
 
-    🗑️ Delete
+                        <td>
+                            {{ $student->email }}
+                        </td>
 
-</button>
+                        <td>
+                            <span class="badge bg-info text-dark px-3 py-2">
+                                {{ $student->program }}
+                            </span>
+                        </td>
 
-</form>
+                        <td>
 
-        </td>
+                            <div class="d-flex gap-2">
 
-    </tr>
+                                <a href="{{ route('students.edit', $student->id) }}"
+                                   class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm">
 
-    @endforeach
+                                    ✏️ Edit
 
-</table>
+                                </a>
+
+                                <form action="{{ route('students.destroy', $student->id) }}"
+                                      method="POST">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm"
+                                            onclick="return confirm('Are you sure you want to delete this record?')">
+
+                                        🗑️ Delete
+
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    @endforeach
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
 
 @endsection
